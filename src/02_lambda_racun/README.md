@@ -200,8 +200,8 @@ Izvršiti navedene substitucije
 Svesti naredne izraze na normalnu formu:
 
 + `(λx.x y) (λu.v u u)`
-+ `λxy.y x u v}`
-+ `(λx.x (x (y z)) x)) (λu.{u v})`
++ `λxy.y x u v`
++ `(λx.x (x (y z)) x)) (λu.(u v))`
 + `(λx.x x y)(λy.y z)`
 + `(λxy.x y y) (λu.u y x)`
 + `(λxyz.x z (y z)) ((λxy.y x) u) ((λxy.y x) v) w`

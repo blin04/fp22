@@ -70,7 +70,7 @@ Ipak, postoji jedan mali problem sa konstruisanom funkcijom: ako bismo potražil
 ```haskell
 faktorijel' n
     | n <= 0 = 1
-    | elsewhere = faktorijel' (n - 1) * n
+    | otherwise = faktorijel' (n - 1) * n
 ```
 
 Primetimo da se ova definicja slaže sa prethodnom, jer je sada `faktorijel' 1 = (faktorijel' 0) * 1 = 1 * 1 = 1 = faktorijel 1`. Jedino po čemu se razlikuju funkcije `faktorijel` i `faktorijel'` je to što `faktorijel` nije defininisana za brojeve `<1`. Za razliku od toga `faktorijel'` za te brojeve vraća vrednost `1`.
@@ -103,7 +103,7 @@ Ponovo imamo funkciju koja nije totalna, ali lako možemo dodefinisati vrednosti
 fib n
     | n <= 1 = 0
     | n == 2 = 1
-    | elsewhere = fib (n - 1) + fib (n - 2)
+    | otherwise = fib (n - 1) + fib (n - 2)
 ```
 
 ### Vavilonsko korenovanje
@@ -122,7 +122,7 @@ Mi možemo pretpostaviti da `x₁₀` dovoljno preciznu aproksimaciju. Stoga mo�
 ``` haskell
 x n s
  | n <= 0 = s / 2
- | elsewhere = (x (n - 1) s + s / x (n - 1) s)
+ | otherwise = (x (n - 1) s + s / x (n - 1) s)
 ```
 
 Dakle, za `n = 0` vraćamo prvu aproksimaciju `x₀` za koju smo rekli da je `s / 2` (zapravo, ovde ponovo stavljamo uslov `n <= 0` da ne bismo imali problema sa negativnim brojevima). Za svako drugo `n` vraćamo `xₙ` kao aritmetičku sredinu od `xₙ₋₁` i `s/xₙ₋₁`.
@@ -140,7 +140,7 @@ Kao i prethodno opisana funkcija `fib`, funkcija `x` "boluje" od suvišnih izra�
 ```haskell
 x n s
  | n <= 0 = s / 2
- | elsewhere = (x' + s / x')
+ | otherwise = (x' + s / x')
  where x' = x (n - 1) s
 ```
 
