@@ -1,6 +1,6 @@
 # Skupovi i funkcije
 
-Svakom programeru je jasna povezanost matematike i programiranja. U funkcionalnom ta veza je mnogo dublja nego što je to slučaj kod imperativne ili objektno orijentisane paradigme. Zbog toga, pre nego što započnemo sa funkcionalnim programiranjem, moramo se podsetiti nekih matematičkih osnova.
+Svakom programeru je jasna povezanost matematike i programiranja. U funkcionalnom programiranju ta veza je mnogo dublja nego što je to slučaj kod imperativne ili objektno orijentisane paradigme. Zbog toga, pre nego što započnemo sa funkcionalnim programiranjem, moramo se podsetiti nekih matematičkih osnova.
 
 ## Skupovi
 
