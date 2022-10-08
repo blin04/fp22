@@ -1,4 +1,4 @@
-# Programske paradigme
+# Haskel
 
 
 ## Lekcije
