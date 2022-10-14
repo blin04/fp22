@@ -103,7 +103,7 @@ Neka su `x`, `y` i `z` različite promenljive. Zamenu izraza `N` u slobodna pona
 + `(P  Q) [N/x] ≡(P [N/x]) (Q [N/x])`.
 + `(λx.P) [N/x] ≡ λx.P`.
 + `(λy.P) [N/x] ≡ λx.(P [N/x])` ako `y ∉ FV(N)`.
-+ `(λy.{P}) [N/x] ≡ λz.(P [z/y][N/x])` ako `y ∈ FV(N)`.
++ `(λy.P) [N/x] ≡ λz.(P [z/y][N/x])` ako `y ∈ FV(N)`.
 
 ### Alfa konverzija
 
@@ -127,7 +127,14 @@ Beta redukciju izraza možemo da vršimo dokle god imamo redeks u izrazu. Ako se
 
 Lambda izraz koji ne sadrži redeks ne možemo da dalje da redukujemo i za taj izraz kažemo da je u *normalnoj formi*. Ako se lambda izraz `M` može svesti u normalnu formu u konačno mnogo redukcija, tada za `M` kažemo da poseduje normalnu formu.
 
-Na primer, izraz `(λx.λy.x y) u v` nije u normalnoj formi, ali poseduje normalnu formu jer se u dve beta redukcije svodi na `u v`. Ipak, nema svaki lambda izraz normalnu formu:
+Na primer, izraz `(λx.(λy.x y)) u v` nije u normalnoj formi, ali poseduje normalnu formu jer se u dve beta redukcije svodi na `u v`:
+
+
+```
+(λx.(λy.x y)) u v → (λy.u y) v → u v
+```
+
+Ipak, nema svaki lambda izraz normalnu formu:
 
 ```
 (λx.x x) (λx.x x) → (λx.x x) (λx.x x) → (λx.x x) (λx.x x) → ...
@@ -180,22 +187,6 @@ Opisana tehnika predstavljanja funkcija više promenljiva pomoću funkcija jedne
 Tehnika karijevanja nam daje interpretaciju višestruke apstrakcije. Od sada, lambda izraz oblika `λx₁.λx₂...λxₙ.N` možemo shvatiti kao funkciju `n` promenljiva.
 
 ## Zadaci
-
-U narednim primerima postaviti zagrade na odgovarajuće mesto:
-
-+ `x y z (y x)`
-+ `λx.u x y`
-+ `λu.u (λx.y)`
-+ `(λu.v u u) z y`
-+ `u x (y z) (λv.v y)`
-+ `(λxyz.x z (y z)) u v w`
-
-Izvršiti navedene substitucije
-
-+ `(λy.x (λw.v w x)) [(u v)/x]`
-+ `(λy.x (λx.x)) [(λy.{x y})/x]`
-+ `(y (λv.x v)) [(λy.v y)/x]`
-+ `(λx.z y) [(u v)/x]`
 
 Svesti naredne izraze na normalnu formu:
 
