@@ -162,7 +162,7 @@ x n s
 
 6. Spratovi jedne zgrade se kreče u zeleno, plavo ili crveno. Svaki sprat se kreči u jednu od te tri boje. Na koliko načina je moguće okrečiti zgradu, ako važi pravilo da se dva susedna sprata ne smeju okrečiti istom bojom.
 
-7. Za proizvoljan prirodan broj `n` definišemo njegov Kolacov niz na sledeći način: `x₀ = n`, `xₙ₊₁ = xₙ / 2` ako je `xₙ` parno, odnosno `xₙ₊₁ = 3 * xₙ + 1` ako je `xₙ` neparno. Pritom ako je `xₙ₊₁` niz se prekida. Na primer Kolacov niz za `n = 12` je `12`, `6`, `3`, `10`, `5`, `16`, `8`, `4`, `2`, `1`. Pretopstavlja se da će se Kolacov niz svakog prirodnog broja evetualno prekinuti, tj. da će se pojaviti `1` u njemu. Naći prirodan broj manji od 10000 koji ima najduži Kolacov niz?
+7. Za proizvoljan prirodan broj `n` definišemo njegov Kolacov niz na sledeći način: `x₀ = n`, `xₙ₊₁ = xₙ / 2` ako je `xₙ` parno, odnosno `xₙ₊₁ = 3 * xₙ + 1` ako je `xₙ` neparno. Pritom ako je `xₙ₊₁ = 1` niz se prekida. Na primer Kolacov niz za `n = 12` je `12`, `6`, `3`, `10`, `5`, `16`, `8`, `4`, `2`, `1`. Pretopstavlja se da će se Kolacov niz svakog prirodnog broja evetualno prekinuti, tj. da će se pojaviti `1` u njemu. Naći prirodan broj manji od 10000 koji ima najduži Kolacov niz.
 
 8. U Srbiji se koriste kovane novčanice od `1`, `2`, `5`, `10` i `20` dinara. Na koliko različitih načina je moguće formirati `40` dinara koristeći kovanice (na primer, jedan način je `10 * 1 + 2 * 5 + 1 * 20`)?
 
