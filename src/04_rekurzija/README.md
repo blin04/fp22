@@ -23,7 +23,7 @@ Kao što vidimo, u zbiru prvih `n` prirodnih brojeva, pojavljuje se zbir prvih `
 zbir = \n -> zbir (n - 1) + n 
 ```
 
-Dakle da bismo izračunali, na primer, zbir prvih 5 prirodnih projeva, izračunaćemo prva 4 broja i dodati 5 na taj zbir. Međutim, da bismo izračunali zbir prva 4 prirodna broja, izračunaćemo zbir prva tri prirodna broja i dodati 4 na taj zbir, itd.. Mešutim u jednom trenutku ćemo stići do toga da nam je potreban zbir jednog broja. U tom slučaju, nećemo više koristiti vezu koju smo opisali, već ćemo prosto vratiti `1`. Takav slučaj, slučaj u kom ne koristimo rekurzivnu definiciju, nazivamo *bazni slučaj*.
+Dakle da bismo izračunali, na primer, zbir prvih 5 prirodnih projeva, izračunaćemo prva 4 broja i dodati 5 na taj zbir. Međutim, da bismo izračunali zbir prva 4 prirodna broja, izračunaćemo zbir prva tri prirodna broja i dodati 4 na taj zbir, itd.. U jednom trenutku ćemo stići do toga da nam je potreban zbir jednog broja. U tom slučaju, nećemo više koristiti vezu koju smo opisali, već ćemo prosto vratiti `1`. Takav slučaj, slučaj u kom ne koristimo rekurzivnu definiciju, nazivamo *bazni slučaj*.
 
 Dakle, kompletna funkcija za računanje zbira prvih `n` brojeva može se ovako zapisati u Haskelu:
 
