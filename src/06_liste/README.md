@@ -136,7 +136,7 @@ zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 Na primer, funkcija `zip` se može definisati preko funkicje `zipWith`:
 
 ```haskell
-zip = zipWith (\x y - (x, y))
+zip = zipWith (\x y -> (x, y))
 ```
 
 ## Zadaci
