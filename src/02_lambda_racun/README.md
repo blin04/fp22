@@ -115,7 +115,7 @@ Relacija `=` jeste relacije ekvivlencije, odnosno važi:
 
 + `M = M` (refleksivnost)
 + Ako `M = N` tada i `N = M` (simetričnost)
-+ Ako `M = M` i `N = P` tada i `M = P` (tranzitivnost)
++ Ako `M = N` i `N = P` tada i `M = P` (tranzitivnost)
 
 ### Beta redukcija
 

@@ -462,7 +462,7 @@ opisZemljotresa r
   | r < 8.0 = "Velik"
   | r < 10.0 = "Razarajući"
   | r >= 10 = "Epski"
-  | othervise = "Greška"
+  | otherwise = "Greška"
 ```
 
 Zapravo, `otherwise` nije ništa drugo nego konstanta `True`. Zbog toga će *guards* konstrukcija uvek vratiti vrednost koja odgovara uvom uslovu kad stigne do njega.
