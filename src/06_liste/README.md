@@ -40,30 +40,71 @@ Jednostavno rečeno, `x` je "uhvatio" oblik svakog broja.
 
 Kod brojeva sa podudaranjem šablona moguće je "uhvatiti" samo neke konkretne vrednosti. Međutim, kod lista je moguće uhvatiti razne oblike. 
 
-Na primer funkciju koja proverava da li je lista prazna, možemo definisati
+Na primer funkciju koja proverava da li je lista celih brojeva prazna, možemo definisati
 
 ```haskell
-prazna :: [a] -> Bool
-prazna [] = True
-prazna x = False
+empty :: [Int] -> Bool
+empty [] = True
+empty x = False
 ```
 
-Slučaj prazne liste je uhvaćen sa oblikom `[]`, dok su svi ostali slučajevi obuhvaćeni generičkim slučajem `x`. 
-
-
-Kao i kod *guards* sintakse, neophodno je obuhvatiti sve moguće oblike promenljive. Ako se neki od oblika izostavi, definisana funkcija neće biti totalna, i za neke od argumenata će doći do izuzetka:
+Slučaj prazne liste je uhvaćen sa oblikom `[]`, dok su svi ostali slučajevi obuhvaćeni generičkim slučajem `x`. Kao i kod *guards* sintakse, neophodno je obuhvatiti sve moguće oblike promenljive. Ako se neki od oblika izostavi, definisana funkcija neće biti totalna, i za neke od argumenata će doći do izuzetka:
 
 ```haskell
-praznaLosa :: [a] -> Bool
-praznaLosa [] = True
+badEmpty :: [Int] -> Bool
+badEmpty [] = True
 ```
 
 ```
-> praznaLosa [1, 2, 3]
-*** Exception: main.hs:3:1-15: Non-exhaustive patterns in function praznaLosa
+> badEmpty [1, 2, 3]
+*** Exception: main.hs:3:1-15: Non-exhaustive patterns in function badEmpty
 ```
 
-## Izlistavanje
+Zamislimo sada da želimo da napišemo funkciju `s :: [Int] -> Int` koja praznoj listi dodeljuje `0`, jednočlanoj listi dodeljuje element te liste, dvočlanoj listi dodeljuje zbir dva elementa, a svim ostalim listama dodeljuje `1` (funkcija nema mnogo smisla ali će lepo ilustrovati *pattern matching*). Korišćenjem *guards* sintakse, dobijamo naredni kod
+
+
+```haskell
+s :: [Int] -> Int
+s xs 
+    | xs == [] = 0
+    | len xs == 1 = xs ! 0
+    | len xs == 2 = xs ! 0 + xs ! 1
+    | otherwise = 1
+```
+
+Korišćenjem podudaranja oblika dobijamo elegantniji kod:
+
+```haskell
+s :: [Int] -> Int
+s [] = 0
+s [x] = x
+s [x, y] = x + y
+s xs = 1
+```
+
+Kao što vidimo, podudaranjem oblika *dekonstruisali* smo neke moguće oblike argumenta funkcije. Na primer, u trećoj liniji definisali smo funkcijeu u slučaju kada je njen argument jednočlana lista `[x]`. Imenom `x` ovde smo "vezali" član te jednočlane liste. Slično, u narednoj lini koda, dekonstruisali smo dvočlane liste. U ovom slučaju, prvi element je predstavljen imenom `x` a drugi element imenom `y`. Poslednja linija ne nameće neki specijalan oblik liste. Samo ime, poput `xs`, obuhvata sve oblike lista. 
+
+Moguće je takođe koristi činjenicu da se lista poput `[x, y, z]` može predstaviti kao `x:[y,z]` ili  `x:y:[z]` ili `x:y:z:[]`. Tako je prehodni primer moguće napisati i kao
+
+```haskell
+s :: [Int] -> Int
+s [] = 0
+s x:[] = x
+s x:y:[] = x + y
+s xs = 1
+```
+
+Korišćenje operatora `:` je posebno korisno kada želimo listu podeliti na *glavu* i *rep*, odnosno prvi element i ostatak liste. Na primer, ako želimo da napišemo funkciju `zbir :: [Int] -> Int` koja sabira sve elemete liste, možemo postupiti ovako:
+
+```haskell
+zbir :: [Int] -> Int
+zbir [] = 0
+zbir x:xs = x + zbir xs
+```
+
+Gornja funkcija je rekurzivna funkcija koja sabira elemente liste tako što nepraznu listu dekonstuiše na glavu (`x`) i rep (`xs`), a zatim pozove samu sebe za pronalaženje zbira repa. U slučaju prazne vraćamo naravno samo `0`.
+
+## Izlistavanj
 
 
 ## Funkcije sa rad s listama
