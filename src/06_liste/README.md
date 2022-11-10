@@ -7,7 +7,7 @@ Haskel poseduje mogućnost definisanja funkcija preko *podudaranja šablona* (*p
 Da bismo definisali funkciju pomoću podudaranja šablona, potrebno je da odmah nakon imena funkcije navedemo šablon koji želimo da "uhvatimo" a zatim i vrednost funkcije za takve argumente. Na primer funkciju tipa `Int -> Int` koja duplira argument možemo ovako definisati:
 
 
-```haskel
+```haskell
 dupliraj :: Int -> Int
 dupliraj x = 2 * x
 ```
@@ -30,7 +30,7 @@ f x
 
 Kao i *guards* sintakse, slučajevi se proveravaju redom, odozdo ka dole. Stoga bi naredna funkcija bila konstantna
 
-```
+```haskell
 f :: Int -> Int
 f x = 0
 f 0 = 1
@@ -104,7 +104,7 @@ zbir x:xs = x + zbir xs
 
 Gornja funkcija je rekurzivna funkcija koja sabira elemente liste tako što nepraznu listu dekonstuiše na glavu (`x`) i rep (`xs`), a zatim pozove samu sebe za pronalaženje zbira repa. U slučaju prazne vraćamo naravno samo `0`.
 
-## Izlistavanj
+## Izlistavanje
 
 
 ## Funkcije sa rad s listama
@@ -182,14 +182,17 @@ zip = zipWith (\x y -> (x, y))
 
 ## Zadaci
 
+1. Svi prirodni brojevi manji od 10 koji su deljivi sa 3 ili 5 su 3, 5, 6 i 9. Njihov zbir je 23. Naći zbir svih prirodnih brojeva manjih od 100 koji su deljivi sa 3 ili 5.
+2. Palindromski broj je prirodan broj koji se čita isto i sa leva i sa desna. Najveći palindromski broj koji je proizvod dva dvocifrena broja je 9009 (jer je 9009 = 91 x 99). Naći najveći palindromski broj koji je proizvod dva trocifrena broja.
+3. Implementirati funkciju koja vraća "Dekartov proizvod dve liste". Na primer: `dekartovProzivod [1, 2, 3] ['a', 'b']` daje `[(1,'a'),(2,'a'),(3,'a'),(1,'a'),(2,'b'),(3,'b')]`.
+
 Napisati naredne funkcije:
  1. Naći poslednji element liste.
  2. Naći pretposlednji element liste.
- 3. Naći broj elemenata u listi
- 4. Obrnuti listu.
- 5. Izbaciti iz liste duplikate.
- 6. Izbaciti iz liste svaki `n` element.
- 7. Ubaciti dati element na `n`-tu poziciju u listu.
- 8. `filter`
- 9. `map`
- 10. `zip`
+ 3. Obrnuti listu.
+ 4. Izbaciti iz liste duplikate.
+ 5. Izbaciti iz liste svaki `n` element.
+ 6. Ubaciti dati element na `n`-tu poziciju u listu.
+ 7. `filter`
+ 8. `map`
+ 9. `zip`

@@ -239,8 +239,10 @@ Mnoge funkcije koriste *maybe* tipove za povratne vrednosti. Već smo se upoznal
 
 ## Zadaci
 
-1. Kreirati algebarski tip podataka `Vektor` koji predstavlja vektor u trodimenzionalnoj ravni (Koristiti `Float` tip za koordinate). Kreirati funkcije za sabiranje vektora, množenje vektora skalarem, skalarnog množenja vektora, vektorskog množenja vektora i računanja dužine vektora.
+1. Kreirati algebarski tip podataka `Vektor` koji predstavlja vektor u trodimenzionalnom prostoru (Koristiti `Float` tip za koordinate). Kreirati funkcije za sabiranje vektora, množenje vektora skalarem, skalarnog množenja vektora, vektorskog množenja vektora i računanja dužine vektora.
 
 2. Kreirati algebarski tip `Valuta` koji može da predstavi neke valute (npr, RSD, EUR, USD) i funkcije koje vrše koverziju između ovih valuta. Kreirati algebarski tip `Smer` koji označava smer u kom se šalje novac (npr. *od* banke ili *ka* banci). Kreirati algebarski tip `Transakcija` koji sadrži količinu (`Float`), zatim valutu i smer. Kreirati jedan proizvoljan niz `Transakcija` od 5 članova ili više. Kreirati funkciju koja računa promenu stanja računa nakon svih izvršenih transakcija.
 
-3. Koji je pandan zakonu komutativnosti `m * n = n * m` na jeziku tipova? Kako bi ste tu jednakost iskazali u Haskelu?
+3. Kreirati tip `Tacka` koji predstavlja tačku u dvodimenzionalnoj ravni. Kreirati tip `Figura` koji može da predstavi pravugaonik, krug, trougao, i proizvoljni pravilni mnogougao u ravni. Kreirati funkcije `povrsina :: Figura -> Float` i `obim :: Figura -> Obim` koje redom računaju površinu i obim figura. Kreirati funkciju `transliraj :: (Float, Float) -> Figura -> Figura` koja translira (pomera) figuru. Kreirati funkciju `skaliraj ::  Float -> Figura -> FIgura` koja [skalira](https://en.wikipedia.org/wiki/Homothety) figuru za uneti faktor.
+
+4. Koji je pandan zakonu komutativnosti `m * n = n * m` na jeziku tipova? Kako bi ste tu jednakost iskazali u Haskelu?
