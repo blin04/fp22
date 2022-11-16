@@ -1,21 +1,20 @@
 # Algebarski tipovi podataka
 
-Već smo uspostavili mnogo analogija između matematičkog pojma *skup* i programerskog pojma *tip*. Na početku kursa smo videli da je sa skupovima moguće vršti neke operacije kao što su presek, unija, razlika, Dekartov proizvod itd... Sada ćemo se upoznati sa dve tipske operacije, operacije koje od tipova prave nove tipove. Te dve operacije će odgovarati operacijama unije i Dekartovog proizvoda. Ali kao što ćemo videti, postoji izvesna analogija između ovih operacija i operacija sabiranja i množenja prirodnih brojeva, zbog čega ovu oblast nazivamo *algebra tipova*, a same operacije *suma* i *proizvod tipova* (uostalom, već smo na samom početku uvideli neku povezanost sabiranja i unije ili množenja i Dekartovog proizvoda).
+Već smo uspostavili mnogo analogija između matematičkog pojma *skup* i programerskog pojma *tip*. Na početku kursa smo videli da je sa skupovima moguće vršti neke operacije kao što su presek, unija, Dekartov proizvod itd... Sada ćemo se upoznati sa konstrukcijom novih tiipova u Haskelu. Kao što ćemo uvideti, konstrukcije novih tipova se odvajaju kroz dve "operacije" koje odgovaraju uniji i Dekartovom proizvodu u teoriji skupova.
 
 ## Trivijalna konstrukcija
 
-Pre nego što pređemo na sumu i proizvod, pogledajmo jednu trivijalnu konstrukciju. U pitanju je pravljenje novog tipa koji sadrži samo jedan, već kreirani, tip.
+Pre nego što pređemo na sumu i proizvod, pogledajmo jednu trivijalnu konstrukciju. U pitanju je pravljenje novog tipa od već postojćeg tipa.
 
 ```haskell
-data Temperatura = Temp Int
-  deriving Show
+data Temperatura = Temp Int deriving (Show)
 ```
 
-*Za sada ignorišite `deriving Show` nakon definicije. Ovo nam samo omogućava ispis verednosti definisanog tipa. Kasnije ćemo detaljnije objasniti `deriving`.*
+Navedenom linijom smo konstruisali novi tip `Temperatura`. Svaka vrednost ovog tipa odgovara jednoj vrednosti tipa `Int`. U gornjem izrazu `Temp` je *konstruktor*. Konstruktori su funkcije uz pomoć kojih konstruišemo vrednosti novog tipa. U našem slučaju, konstruktor `Temp` ima tip `Int -> Temperatura`.
 
-Navedenom linijom smo konstruisali novi tip `Temperatura`. Svaka vrednost ovog tipa sadrži samo jednu vrednost tipa `Int`. U gornjem izrazu `Temp` je *konstruktor*. Konstruktori su funkcije uz pomoć kojih konstruišemo vrednosti novog tipa. U našem slučaju, konstruktor `Temp` ima tip `Int -> Temperatura`.
+Kod `deriving (Show)` nakon definicije tipa nije obavezan. Ovaj kod nam omogućava ispis verednosti definisanog tipa uz pomoć funkcije `show`, što olakšava rad u GHCi-u. Kasnije ćemo detaljnije objasniti `deriving`.
 
-Konstruktori se takođe koriste i za dekonstrukciju tipova. Kako znamo da vrednost tipa `Temperatura` mora biti oblika `(Temp x)`, možemo upotrebiti *pattern-matching* da oslobodimo vrednost `x`:
+Bitno je da shvatimo da smo navedenim kodom kontruisali jedan tip (kolekciju vrednosti) koju označavamo sa `Temperatura`. Vrednosti koje pripdaju ovom tipu za nas su apstraktni entiteti. Međutim svaku od tih vrednosti možemo dobiti primenom konstruktora `Temp` na neku vrednost tipa `Int`. Zbog toga, tip `Temperatura` možemo da shvatimo kao skup `{... Temp (-3), Temp (-2), Temp (-1), Temp 0, Temp 1, Temp 2, Temp 3 ...}`. Sada. kada znamo da vrednost tipa `Temperatura` mora biti oblika `(Temp x)`, možemo upotrebiti tehniku poklapanja šablona da "oslobodimo" vrednost `x`:
 
 ```haskell
 uInt :: Temperatura -> Int
@@ -28,6 +27,8 @@ uInt (Temp x) = x
 20
 ```
 
+Ova trivijalna kontrukcija ne deluje previše korisno. Zaista, svo što možemo da uradimo sa vrednostima tipa `Temperatura`, mogli smo već da uradimo sa vrednostima tipa `Int`.
+
 ## Proizvod
 
 Proizvod tipova odgovara Dekartovom proizvodu skupova. Proizvod tipova u Haskelu se jednostavno konstruiše: dovoljno je nakon konstuktora navesti više tipova.
@@ -36,24 +37,47 @@ Na primer, vektor dvodimenzionalne ravni možemo definsati kao proizvod tipova `
 
 ```haskell
 data Vektor2D = Vektor Float Float
-  deriving Show
+                deriving (Show)
 ```
 
-Sada ponovo u funkcijama možemo koristiti *pattern matching*:
+*Nije neophodno da `deriving (Show)` bude u produžetku linije. Ali mora biti u sledećoj liniji.*
+
+Sada ponovo u funkcijama možemo koristiti poklapanje šablona:
 
 ```haskell
 zbirVektora :: Vektor -> Vektor -> Vektor
 zbirVekotra (Vektor x1 y1) (Vektor x2 y2) = Vektor (x1 + x2) (y2 + y2)
 ```
 
-Naravno ne moramo koristiti iste tipove u proizvodu niti ih mora biti samo dva. Sledeći tip prestavlja jednu osobu (njeno ime, godine, i to da li je državljanin Srbije)
+```haskell
+duzinaVektora :: Vektor -> Float
+zbirVekotra (Vektor x y) = sqrt (x**2 + y**2)
+```
+
+Naravno ne moramo koristiti iste tipove u proizvodu niti ih mora biti samo dva. Sledeći tip prestavlja jednu osobu (njeno ime, godine, i to da li je državljanin Srbije):
 
 ```haskell
 data Osoba = Osoba [Char] Int Bool
-  deriving Show
+             deriving (Show)
 ```
 
 Navedeni primer demonstira da je moguće da tip i konstruktor imaju isto ime (ovo se često koristi u Haskel kodovima).
+
+Pri radu sa tipom `Osoba` takođe korsitimo poklapanje šablona. Na primer ako želimo da "izvučemo" ime iz osobe, možemo napisati narednu funkciju:
+
+```haskell
+imeOsobe :: Osoba -> [Char]
+imeOsobe (Osoba ime _ _) = ime
+```
+
+Prethodna funkcija odgovara onome što u objektno orijentisanim jezicima nazivamo *geter* (metoda kojom se pristupa nekom atributu objekta). Lako je implementirati i "seter":
+
+```haskell
+promeniIme :: Ime -> Osoba -> Osoba
+promeniIme novoIme (Osoba _ godine drzavljanin) = Osoba novoIme godine drzavljanin
+```
+
+Pažljiv čitalac će uvideti da smo koncept proizvoda tipova već imali kod uređenih n-torki. I zaista tip `([Char], Int, Bool)` je nekom smislu ekvivalentan tipu `Osoba` (preciznije, između njih postoji bijekcija). Svaku vrednost tipa `Osoba` možemo konvertovati u vrednost tipa `([Char], Int, Bool)` i obrnuto (napišite funkcije koje vrše tu konverziju). Ipak, korišćenje algebarskog proizvoda tipova je više u duhu Haskela. Konstuktori su funkcije, što dozvoljava mnogo veću ekspresivnost (na primer, konstruktore možemo da prosleđujemo funkcijama ili vraćamo od istih, ili da izršimo pracijalnu aplikaciju argumenata).
 
 ## Suma
 
@@ -63,12 +87,12 @@ Suma tipova se vrši postavljanjem vertikalne crte između tipova. Na primer:
 
 ```haskell
 data SlovoIliBroj = Slovo Char | Broj Int
-    deriving Show
+                    deriving (Show)
 ```
 
 Ovim smo definisali tip koji možemo da shvatimo kao skup sačinjen od svih slova i brojeva.
 
-Da bi smo radili sa sumama, ponovo ćemo koristit *pattern matching*:
+Da bi smo radili sa sumama, ponovo ćemo koristiti poklapanje šablona:
 
 ```haskell
 daLiJeSlovo :: SlovoIliBroj -> Bool
@@ -80,7 +104,7 @@ Kao i u slučaju proizvoda tipova, moguće je "sabrati" više tipova od jednom. 
 
 ```haskell
 data Duzina = Metar Float | Milja Float | SvetlosnaSekunda Float
-  deriving Show
+              deriving (Show)
 ```
 
 Za tip `Duzina` možemo da definišemo ovakvu funkciju konverzije:
@@ -92,11 +116,13 @@ uMetre (SvetlosnaSekunda x) = Metar (299792458 * x)
 uMetre x = x
 ```
 
+Trebalo bi imati na umu da suma tipova uvek shvatamo kao *disjunktnu* uniju. Naredni primer demonstrira ovu činjenicu:
+
+```haskell
+data mojBool = Levo Bool | Desno Bool
 ```
-> duzinaStaze = Milja 6
-> uMetre duzinaStaze
-Metar 9656.064
-```
+
+Neko bi možda pomislio da goredefinisan tip `mojBool` sadrži samo dve vrednosti, `True` i `False`,  jer je dobijen uniranjem dva `Bool` tipa. Ipak to nije tako, tip `mojBool` sadrži četiri vrednosti `Levo True`, `Levo False`, `Desno True` i `Desno False`! Dakle, konstruktore možemo shvatiti i kao neke labele koji se dodeljuju konktretnim vrednostima i utiču da se te vrednosti međusobno razlikuju (te stoga `Levo True` i `Desno True` nisu iste vrednosti).
 
 ## Jedinični tip
 
@@ -108,7 +134,7 @@ data MojTip = MojKonstruktor
 
 U ovom slučaju konstruktor `MojKonstruktor` je funkcija arnosti 0, odnsno konstanta tipa `MojTip`. Drugim rečima, tip `MojTip` sadrži samo jednu vrednost a to je `MojKonstruktor`. Zbog toga za `MojTip` kažemo da je *jediničan tip*.
 
-Ovakva konstrukcija nije mnogo korisna sama po sebi, ali je veoma korisna kada se koristi unutar suma. Na primer, sada lako (i logično) možemo da predstavimo tipove sa konačno mnogo članova:
+Ovakva konstrukcija nije mnogo korisna sama po sebi, ali je veoma korisna kada se koristi unutar suma. Na primer, sada lako (i logično) možemo da predstavimo tipove sa konačno mnogo članova (takozvane *enumeracije*):
 
 
 ```haskell
@@ -165,7 +191,7 @@ konvertuj2 (MuskaOsoba x) = Osoba1 x Musko
 konvertuj2 (ZenskaOsoba x) = Osoba1 x Zensko
 ```
 
-Svejedno je da li koristimo tip `Osoba1` ili tip `Osoba2` za prezentovanje osobe. Bitno je da znamo da nijedna od ove dve prezentacije nije suštinski bolja od one druge.
+Sve jedno je da li koristimo tip `Osoba1` ili tip `Osoba2` za prezentovanje osobe. Bitno je da znamo da nijedna od ove dve prezentacije nije suštinski bolja od one druge.
 
 Analogije postoje između broja `1` i tipa `()` (ili bilo kog drugog jediničnog tipa). Na primer u aritmetici važi `m * 1 = m`. Na jeziku skupova (i tipova) ta jednakost postaje `A × () ≅ A`. Zaista, množenjem nekog tipa sa jediničnim tipom, suštinski ne dobijamo novi tip:
 
@@ -173,10 +199,10 @@ Analogije postoje između broja `1` i tipa `()` (ili bilo kog drugog jediničnog
 data Tip = Tip Int ()
 
 uTip :: Int -> Tip
-uTip x = Tip x
+uTip x = Tip x ()
 
 uInt :: Tip -> Int
-uInt (Tip x ()) = x
+uInt (Tip x _) = x
 ```
 
 Ovim je demonstrirano da `Int × () ≅ Int`.

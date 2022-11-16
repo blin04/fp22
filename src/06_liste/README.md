@@ -185,14 +185,13 @@ zip = zipWith (\x y -> (x, y))
 1. Svi prirodni brojevi manji od 10 koji su deljivi sa 3 ili 5 su 3, 5, 6 i 9. Njihov zbir je 23. Naći zbir svih prirodnih brojeva manjih od 100 koji su deljivi sa 3 ili 5.
 2. Palindromski broj je prirodan broj koji se čita isto i sa leva i sa desna. Najveći palindromski broj koji je proizvod dva dvocifrena broja je 9009 (jer je 9009 = 91 x 99). Naći najveći palindromski broj koji je proizvod dva trocifrena broja.
 3. Implementirati funkciju koja vraća "Dekartov proizvod dve liste". Na primer: `dekartovProzivod [1, 2, 3] ['a', 'b']` daje `[(1,'a'),(2,'a'),(3,'a'),(1,'a'),(2,'b'),(3,'b')]`.
-
-Napisati naredne funkcije:
- 1. Naći poslednji element liste.
- 2. Naći pretposlednji element liste.
- 3. Obrnuti listu.
- 4. Izbaciti iz liste duplikate.
- 5. Izbaciti iz liste svaki `n` element.
- 6. Ubaciti dati element na `n`-tu poziciju u listu.
- 7. `filter`
- 8. `map`
- 9. `zip`
+4. Napisati naredne funkcije:
+   1. `last` (vraća poslednji element liste)
+   2. `secondToLast` (vraća pretposlednji element liste)
+   3. `reverse` (obrće listu)
+   4. `unique` (izbacuje duplikate iz liste zadržavajući samo prvi element)
+   5. `filter`
+   6. `map`
+   7. `zip`
+   8. `foldl`
+5. Implementirati `map` funkciju preko `foldl` funkcije.
