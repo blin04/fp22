@@ -110,7 +110,7 @@ Gornja funkcija je rekurzivna funkcija koja sabira elemente liste tako što nepr
 ## Funkcije sa rad s listama
 
 
-### filter
+### `filter`
 
 Funkcija višeg reda `filter` nam omogućuje da iz neke liste izdvojimo samo elemente koji zadovoljavaju neki uslov. Tip ove funkcije je
 
@@ -129,7 +129,7 @@ Na primer, ako želimo da "uzmemo" samo parne projeve iz liste `[1, 2, 3, 4, 5, 
 
 *Neka su `p` i `q` dve funkcije tipa `a -> Bool`. Zašto su `filter p . filter q` i `filter (\x -> p x && q x)` iste funkcije?*
 
-### map
+### `map`
 
 Još jedna funkcija višeg reda koja se često koristi sa listama je `map`. Funkcija `map` primenjuje neku drugu funkciju na svaki element liste i vraća listu dobijenih vrednosti. Tip funkcije `map` je:
 
@@ -148,7 +148,69 @@ Na primer, ako želimo da kvadriramo svaki element liste `[1, 2, 3, 4]`, možemo
 
 *Neka je `f :: a -> b` i `g :: b -> c`. Zašto su `map g . map f` i `map (g . f)` iste funkcije?*
 
-### zip
+
+### `foldr` i `prijatelji`
+
+Funckcije `map` i `filter`, prolaze kroz datu listu primenjujući na svaki element datu funkciju, a zatim vrednosti tih primena koriste za konstruisanje nove liste. Funkcija `foldr` je malo drugačija: ova funkcija koristi prosleđenu binarnu funkciju da bi prosleđenu listu "presavila" (*fold*) u jednu jedinu vrednost (a ne listu). Tip funkcije `foldr` je
+
+```
+foldl :: (a -> b -> b) -> b -> [a] -> b
+```
+
+Prvi argument funkcije `foldl` je binarna funckija tipa `a -> b -> b`. Drugi argument je početna vrednost, a treći argument je niz koji želimo da "presavijemo". Funkcija `foldr` "prolazi" kroz datu listu s desna na levo (otuda *foldr*) pozivajući nad svakim argumentom datu binarnu funckiju. Za svaki taj poziv, rezultat poziva nad prethodnim argumentom se koristi kao drugi argument binarne funkcije. Inicijalna vrednost se koristi kao drugi argument pri prvom pozivu (a to je poziv nad poslednjim elementom u listi).
+
+Komplikovano objašnjenje će postati jasnije kroz naredni primer. Uz pomoć `foldr` možemo da saberemo sve elemente jedne liste. Definišimo
+
+```haskell
+f = \a b -> a + b
+```
+
+Ako `foldr` pozovemo nad praznom listom, dobićemo samo inicijalnu vrednost:
+
+```haskell
+>foldr f 0 []
+0
+```
+
+Ako `foldr` pozovemo nad jednočlanom listom, dobićemo rezultat primene funkcije `f` nad jedinim elementom liste i inicijanom vrednošću:
+
+```haskell
+> foldr f 0 [1]
+1   -- f 1 0 = 1 + 0
+```
+
+U slučaju dvočlane liste, funkcija `f` biče dva puta pozvana. Pri drugom pozivu biće iskorišćena povratna vrednost prvog poziva:
+
+```haskell
+> foldr f 0 [2, 1]
+3   -- f 2 (f 1 0) = f 2 1
+```
+
+Za listu od više elemenata imamo:
+
+```haskell
+> foldr f 0 [5, 4, 3, 2, 1]
+15  -- f 5 (f 4 (f 3 (f 2 (f 1 0))))
+```
+
+Prostije rečeno, u ovom slučaju funkcija `foldr` se ponaša tako što postavlja operaciju `+` između svaka dva elementa, asocirajući zagrade ka desno:
+
+```
+(5 + (4 + (3 + (2 + (1 + 0)))))
+```
+
+Uz funkciju `foldr` koristi se i `foldl` koja "presavija" listu sa leva. Naravno, kada koristimo *komutativnu* operaciju, dobijamo isti rezultat sa `foldl` i `foldr` funkcijama. Ali za nekomutatine operacije, rezultati će se uglavno razlikovati:
+
+```haskell
+> g = \a b -> a / b
+> foldl g 1 [1, 2, 3]
+0.16666 -- (1 / 2) / 3
+>foldr g 1 [1, 2, 3]
+1.5 -- 1 / (2 / 3)
+```
+
+
+### `zip`
 
 Zip je funkcija koja od dve liste pravi novu listu koju čine uređeni parovi elemenata iz prve dve liste. Pridruživanje se vrši redosledom kojim su elementi navedeni u listama. Tip funkcije `zip` je:
 
@@ -201,3 +263,4 @@ zip = zipWith (\x y -> (x, y))
 8. Npaisati funkciju `kodiraj :: String -> [(Char, Int)]` koja kodira nisku tako što je predstavlja kao niz uređenih parova karatera i prirodnih brojeva. Broj označava koliko dužinu uzastopnog ponavljanja datog stringa. Na primer: `kodiraj "aaaabb"` daje `[('a', 3), ('b', 2)]`, a `kodiraj "Google"` daje `[('G', 1), ('o', 2), ('g', 1), ('l', 1), ('e', 1)]`. Napisati i funckiju `dekodiraj :: [(Char, Int)] -> String`.
 9. Napistai program koji proverava da li je uneti prirodan broj prost.
 10. Napisati program koji vraća listu prvih `n` Fibonačijevih brojeva.
+11. Napisati funkciju `rotate :: Int -> [a] -> [a]` koja 'rotira' listu tako što svaki element pomera za `n` koraka u levo: `rotate 1 ['a', 'b', 'c', 'd']` daje `['b', 'c', 'd', 'a']`, a rotate `rotate 2 ['a', 'b', 'c', 'd']` daje `['c', 'd', 'a', 'b']`, itd...
