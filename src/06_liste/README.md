@@ -194,4 +194,10 @@ zip = zipWith (\x y -> (x, y))
    6. `map`
    7. `zip`
    8. `foldl`
+   9. `concat` (listu lista spaja u jednu listu)
 5. Implementirati `map` funkciju preko `foldl` funkcije.
+6. Implementirati `filter` funkciju preko `foldl` funkcije.
+7. Naći sve početke data liste. Na primer `poceci [1, 2, 3]` bi trebalo da nam vrati `[[], [1], [1, 2], [1, 2, 3]]`. 
+8. Npaisati funkciju `kodiraj :: String -> [(Char, Int)]` koja kodira nisku tako što je predstavlja kao niz uređenih parova karatera i prirodnih brojeva. Broj označava koliko dužinu uzastopnog ponavljanja datog stringa. Na primer: `kodiraj "aaaabb"` daje `[('a', 3), ('b', 2)]`, a `kodiraj "Google"` daje `[('G', 1), ('o', 2), ('g', 1), ('l', 1), ('e', 1)]`. Napisati i funckiju `dekodiraj :: [(Char, Int)] -> String`.
+9. Napistai program koji proverava da li je uneti prirodan broj prost.
+10. Napisati program koji vraća listu prvih `n` Fibonačijevih brojeva.
