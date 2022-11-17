@@ -1,71 +1,5 @@
 # Klase tipova
 
-## Vrste
-
-U prethodnoj sekciji upoznali smo se sa apstraktnim algebarskim tipom podataka
-
-```haskell
-data Maybe a = Just a | Nothing
-```
-
-Na osnovu prethodne definicje, možemo dobiti tipove poput `Maybe Int`, `Maybe Bool`, `Maybe [Char]`, itd... Međutim, sam `Maybe` ne predstavlja tip sam za sebe (ne postoji vrednost tipa `Maybe`). Šta je onda `Maybe`?
-
-Ako pogledamo bolje, videćemo da `Maybe` od tipova "pravi" nove tipove: od `Int` dobijamo `Maybe Int`, od `[Char]` dobijamo `Maybe [Char]` itd... Prema tome, `Maybe` predstavlja *funkciju nad tipovima* (*tipsku funkciju*). Domen kodomen funkcije nad tipovima je kolekcija svih Haskel tipova. 
-
-Možemo se zapitati koji je tip ove funkcije nad tipovima? Da bismo odgovorili na to, prvo moramo definisati tip tipa.
-
-U Haskelu, tip tipova se naziva *vrsta* (eng. *kind*). Svi konkretni tipovi, tj. oni tipovi koji nisu tipske funkcije (npr. `Int`, `Float`, `Char`, `[Char]`), poseduju vrstu `*`. Za razliku od konkretnih tipova, vrsta `* -> *` tipske funkcije `Maybe` označava da `Maybe` uzima jedan konkretan tip i daje drugi konkretan tip.
-
-U interaktivnom okruženju, vrste tipova možemo saznati uz pomoć naredbe `:kind` (skraćeno `:k`). Na primer
-
-``` 
-> :k Int
-Int :: *
-> :k Maybe
-Maybe :: * -> *
-> :k Maybe Int
-Maybe Int :: *
-```
-
-Slično tipu `Maybe`, koristi se i tip `Either`:
-
-```haskell
-data Either a b = Left a | Right b 
-```
-
-Tip `Either` se često koristi za prezentovanje grešaka i "dobrih" vrednosti. Uobičajno se greške predstavljaju uz pomoć konstruktora `Left`, a "dobre" vrednosti uz pomoć konstruktora `Right`.
-
-Tip `Either` je vrste `* -> * -> *` jer uzima dva konkretna tipa:
-
-```
-> :k Either
-Either :: * -> * -> *
-```
-
-Međutim kada `Either` apliciramo na neki konkretan tip, dobijamo tipsku funkciju jedne promenljive:
-
-```
-> :k (Either Int)
-(Either Int) :: * -> *
-```
-
-Dakle, i na nivou tipova imamo pojmove apstrakcije, aplikacije i karijevanja.
-
-Iako priča o vrstama i tipskim funkcijama deluje apstraktno, mi smo se sa tipskim funkcijama susreli na samom početku učenja Haskela. Tipska funkcija `([]) :: * -> *` prevodi tip `a` u tip lista tog tipa `[a]`. Jedina razlika je u tome što za ovu tipsku funkciju koristimo specijalnu sintaksu (`[a]` a ne `[] a`). Zaista:
-
-```
-> :k ([])
-([]) :: * -> *
-> :k (([]) Int)
-(([]) Int) :: *
-``` 
-
-*Napomena: ne treba mešati tipsku funkciju `[]` sa konstruktorom prazne liste `[]`*
-
-Još jedna tipska funkcija koja se svuda koristi je `(->) :: * -> * -> *`. Funkcija `(->)` primenjena na dva tipa `a` i `b` daje tip svih preslikavanja iz `a` u `b`. Taj tip označavamo upravo sa `a -> b`.
-
-*Posmatrajući sada tip `Maybe` kroz algebru tipova, shvatamo da `Maybe` odgovara funkciji sledbenika `f(x) = x + 1`. Zaista, funkcija `Maybe` konstruiše novi tip tako što na njega dodaje jednu vrednost.*
-
 
 ## Klase tipova
 
@@ -77,19 +11,28 @@ Klasa tipova se definiše narednom konstrukcijom
 class ImeKlase a where
 ```
 
-nakon koje sledi niz definicaja tipova nekih funkcija (u ovom slučaju `a` je tipska promenljiva).
+nakon koje sledi niz definicija tipova nekih funkcija (u ovom slučaju `a` je tipska promenljiva).
 
 Da bi neki tip `T` pridružili klasi tipova `Klasa`, poslužićemo se narednom konstrukcijom
 
 ```haskell
-instance Klasa T where
+instance ImeKlase T where
 ```
 
 nakon koje su navedene definicije funkcija koje propisuje klasa.
 
-Više o klasama tipova naučićemo analizirajući neke poznate klase Haskel jezika.
 
 *Napomena: Klasa tipova nema nikakve veze sa pojmom klase u objektno orijentisanim jezicima. Klasa tipova u Haskel jeziku približno odgovara pojmu interfejsa u Javi.*
+
+
+## Primer: Motorna vozila
+
+TODO
+
+
+## Predefinsane klase u Haskelu
+
+Više o klasama tipova naučićemo analizirajući neke poznate klase Haskel jezika.
 
 ### Klasa `Eq`
 
