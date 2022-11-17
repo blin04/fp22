@@ -148,8 +148,7 @@ Na primer, ako želimo da kvadriramo svaki element liste `[1, 2, 3, 4]`, možemo
 
 *Neka je `f :: a -> b` i `g :: b -> c`. Zašto su `map g . map f` i `map (g . f)` iste funkcije?*
 
-
-### `foldr` i `prijatelji`
+### `foldr` i prijatelji
 
 Funckcije `map` i `filter`, prolaze kroz datu listu primenjujući na svaki element datu funkciju, a zatim vrednosti tih primena koriste za konstruisanje nove liste. Funkcija `foldr` je malo drugačija: ova funkcija koristi prosleđenu binarnu funkciju da bi prosleđenu listu "presavila" (*fold*) u jednu jedinu vrednost (a ne listu). Tip funkcije `foldr` je
 
@@ -209,7 +208,6 @@ Uz funkciju `foldr` koristi se i `foldl` koja "presavija" listu sa leva. Naravno
 1.5 -- 1 / (2 / 3)
 ```
 
-
 ### `zip`
 
 Zip je funkcija koja od dve liste pravi novu listu koju čine uređeni parovi elemenata iz prve dve liste. Pridruživanje se vrši redosledom kojim su elementi navedeni u listama. Tip funkcije `zip` je:
@@ -227,8 +225,7 @@ Funkciju `zip` ćemo demonstrirati na konkretnom primeru:
 
 Primetimo da je vraćena lista iste dužine kao kraći od prosleđenih lista.
 
-
-### zipWith
+### `zipWith`
 
 Funkcija `zipWith` je upoštenje  prethodno opisane funkcije `zip`. `zipWith` kombinuje dve liste element-po-element koristeći prosleđenu funkciju, te je `zipWith` funkcija višeg reda za razliku od funkcije `zip`. Tip funkicje `zipWith` je:
 

@@ -56,7 +56,7 @@ data Maybe a = Just a | Nothing
 
 Mnoge funkcije koriste *maybe* tipove za povratne vrednosti. Već smo se upoznali sa funkcijom `head :: [a] -> a` koja vraća prvi element liste. Međutim, pozivanje ove funkcije nad praznom listom `[]` dovodi do greške koja prekida izvršavanje programa (izuzetak). Zbog toga, često Haskel programeri koriste funkciju `maybeHead :: [a] -> Maybe a` koja vraća prvi element liste "zapakovan" u `Just` ako ta lista nije prazna, a u suprotnom `Nothing`. Za razliku od funkcije `head`, funkcija `maybeHead` je totalna.
 
-## Vrste
+## `Vrste`
 
 U prethodnoj sekciji upoznali smo se sa apstraktnim algebarskim tipom podataka
 
@@ -83,7 +83,7 @@ Maybe :: * -> *
 Maybe Int :: *
 ```
 
-### Either
+### `Either`
 
 Slično tipu `Maybe`, koristi se i tip `Either`:
 
@@ -109,7 +109,7 @@ Međutim kada `Either` apliciramo na neki konkretan tip, dobijamo tipsku funkcij
 
 Dakle, i na nivou tipova imamo pojmove apstrakcije, aplikacije i karijevanja.
 
-### []
+### `[]`
 
 Iako priča o vrstama i tipskim funkcijama deluje apstraktno, mi smo se sa tipskim funkcijama susreli na samom početku učenja Haskela. Tipska funkcija `([]) :: * -> *` prevodi tip `a` u tip lista tog tipa `[a]`. Jedina razlika je u tome što za ovu tipsku funkciju koristimo specijalnu sintaksu (`[a]` a ne `[] a`). Zaista:
 
@@ -122,7 +122,7 @@ Iako priča o vrstama i tipskim funkcijama deluje apstraktno, mi smo se sa tipsk
 
 *Napomena: ne treba mešati tipsku funkciju `([]) :: * -> *` sa konstruktorom prazne liste `[] :: [a]`*
 
-### (->)
+### `(->)`
 
 Još jedna tipska funkcija koju smo od samog početka koristili je `(->) :: * -> * -> *`. Tipska funkcija `(->)` primenjena na dva tipa `a` i `b` daje tip svih preslikavanja iz `a` u `b`. Taj tip označavamo upravo sa `a -> b`.
 
