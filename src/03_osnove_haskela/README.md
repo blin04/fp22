@@ -122,7 +122,7 @@ U lambda računu, izraze oblika `(M N)`, tzv. aplikacije, interpretirali smo kao
 
 U gornjem primeru, u prompt smo uneli jedan redeks (apstrakciju apliciranu na neku vrednost). Ghci je pokušao da beta redukuje taj redeks sa normalnu formu, u čemu je i uspeo, a zatim je tu normalnu formu ispisao.
 
-```haskell
+```
 (f 10) ≡ ((λx. (2 * x)) 10) → (2 * 10) → 20
 ```
 
@@ -141,8 +141,8 @@ Zbir brojeva 22 i 33 izračunaćemo aplikacijom funkcije `zbir` na 22, a zatim a
 
 I u ovom slučaju, ghci je uspešno beta redukovao izraz do normalne forme:
 
-```haskell
-> ((zbir 22) 33) ≡ (((λx.λy. (x + y)) 22) 33) → ((λy. (22 + y)) 33) → (22 + 33) → 55 
+```
+((zbir 22) 33) ≡ (((λx.λy. (x + y)) 22) 33) → ((λy. (22 + y)) 33) → (22 + 33) → 55 
 ```
 
 U lamda račun su uvedene neke konvencije koje nam omogućuju da obrišemo zagrade u lambda izrazima. Te konvencije postoje i u Haskelu:
@@ -383,7 +383,7 @@ int funkcija(int a) {
 
 Iako znamo da je Haskel ekspresivan isto koliko i bilo koji drugi programski jezik, ipak Haskel sintaksa koju smo do sada savladali  nem ne omogućuje da na jednostavan način zapišemo mnoge programe. Zbog toga ćemo ovde videti još par sintaksnih konstrukcija koje će nam pomoći da se "izrazimo".
 
-### if-then-else
+### `if-then-else`
 
 Iako `if-then-else` nije konstrukcija koja se često koristi u Haskelu (videćemo uskoro zašto), navodimo je ovde prvu jer je svima dobro poznata. Sintaksa je sasvim jednostavna što sledeći primer demonstrira:
 
@@ -477,7 +477,7 @@ f x
   | otherwise = b 
 ```
 
-### where
+### `where`
 
 Dok je u imperativnim programskim jezicima moguće definisati i koristiti lokalne promenljive unutar tela neke funkcije, u Haskelu je tako nešto nemoguće. Sve vrednosti koje se definišu u Haskelu su konstantne i ne mogu se menjati.
 
