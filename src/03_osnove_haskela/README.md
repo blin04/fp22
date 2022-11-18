@@ -42,7 +42,7 @@ Grubo govoreći, Haskell kod se sastoji od *izraza* ili *dekleracija*. *Izrazi* 
 
 Aritmetika u Haskelu se ne razlikuje mnogo od aritmetike u drugim programskim jezicima. Na primer, ako unesemo `25+6` u *GHCi* prompt (i zatim pritisnemo *Enter*), dobićemo očekivani rezultat:
 
-```
+```haskell
 > 25 + 6
 31
 ```
@@ -53,14 +53,14 @@ Na primer upisivanjem izraza `(1 - 2/3) ^ 2` dobijamo `0.1111111`. Obratite paž
 
 I logički izrazi u Haskelu funkcionišu slično kao u ostalim jezicima. Za logičke konstante, *Tačno* i *Netačno* koriste se se  *True* i *False*. Logičke operacije konjukcija i disjunkcija označavaju se binarnim operatorima `&&` i `||`, dok se negacija označava sa `not`. Na primer:
 
-```
+```haskell
 > (True || False) && not True
 False
 ```
 
 Brojeve možemo porediti onako kako smo na to navikli u drugim jezicima. Rezultat poređenja je logička vrednost
 
-```
+```haskell
 > 2 < 3
 True
 > 2 == 3
@@ -75,7 +75,7 @@ False
 
 Štaviše i same logičke vrdnosti možemo porediti pa imamo
 
-```
+```haskell
 > False < True
 True
 > False == True
@@ -90,7 +90,7 @@ False
 
 Međutim, vrednosti različitog tipa ne možemo porediti (kao što je to slučaj u npr. javasckriptu), te će nas pokušaj poređenja broja i logičke vrednosti dovesti do greške:
 
-```
+```haskell
 > 2 < True
 
 <interactive>:4:1: error:
@@ -106,7 +106,7 @@ Haskel jezik je zapravo lambda račun sa tipovima. U prošloj sekciji smo se upo
 
 U lambda računu, izraze oblika `λx.M`, tzv. apstrakcije, interpretirali smo kao definicije funkcija. U Haskelu funkcije možemo definisati pomoću lambda apstrakcija:
 
-```
+```haskell
 > f = (\x -> (2 * x))
 >
 ```
@@ -115,33 +115,33 @@ Gornjom linijom definisana je funkcija `f` koja vraća dvostruki argument (u mat
 
 U lambda računu, izraze oblika `(M N)`, tzv. aplikacije, interpretirali smo kao primene funkcija na vrednosti. I ova notacija se prenosi u Haskel. Stoga, ako želimo da izračunamo `f(10)` napisaćemo `f 10` u prompt.
 
-```
+```haskell
 > (f 10)
 20
 ```
 
 U gornjem primeru, u prompt smo uneli jedan redeks (apstrakciju apliciranu na neku vrednost). Ghci je pokušao da beta redukuje taj redeks sa normalnu formu, u čemu je i uspeo, a zatim je tu normalnu formu ispisao.
 
-```
+```haskell
 (f 10) ≡ ((λx. (2 * x)) 10) → (2 * 10) → 20
 ```
 
 Da bismo definisali funkcije više promenljivih koristićemo tehniku karijevanja koju smo opisali u prethodnoj sekciji. Npr. funkciju zbir možemo definisati na sledeći način:
 
-```
+```haskell
 zbir = (\x -> (\y -> (x + y))) 
 ```
 
 Zbir brojeva 22 i 33 izračunaćemo aplikacijom funkcije `zbir` na 22, a zatim aplikacijom dobijene vrednosti na 33:
 
-```
+```haskell
 > ((zbir 22) 33)
 55
 ```
 
 I u ovom slučaju, ghci je uspešno beta redukovao izraz do normalne forme:
 
-```
+```haskell
 > ((zbir 22) 33) ≡ (((λx.λy. (x + y)) 22) 33) → ((λy. (22 + y)) 33) → (22 + 33) → 55 
 ```
 
@@ -157,11 +157,11 @@ Iako ove konvencije pojednostavljuju lambda izraze, Haskel podržava još jedan 
 
 Na primer prehodne funkcije `f` i `zbir` smo mogli i ovako da definišemo
 
-```
+```haskell
 f x = 2 * x
 ```
 
-```
+```haskell
 zbir x y = x + y
 ```
 
@@ -169,25 +169,24 @@ zbir x y = x + y
 
 Liste u Haskelu su homegene strukture podataka, što znači da mogu sadržati vrednosti samo jednog tipa (npr. samo brojeve ili samo logičke vrednosti). Liste se konstruišu navođenjem vrednosti unutar uglastih zagrada: 
 
-```
+```haskell
 > x = [1, 2, 3, 4 , 5] 
 ```
 
+```haskell
+> praznaLista = []
 ```
-praznaLista = []
-```
-
 
 Elementu liste možemo pristupiti pomoću operatora `!!` (obratite pažnju da su liste indeksirane od nule):
 
-```
+```haskell
 > x !! 2
 3
 ```
 
 Dužinu liste možemo pronaći sa `length` funkcijom
 
-```
+```haskell
 > length x
 5
 > length []
@@ -196,21 +195,21 @@ Dužinu liste možemo pronaći sa `length` funkcijom
 
 Dve liste možemo spojiti pomoću operatora `++`:
 
-```
+```haskell
 > x ++ [6, 7, 8, 9]
 [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
 Za "uzimanje" prvog elementa liste, možemo iskoristiti funkciju `head`
 
-```
+```haskell
 > head x
 1 
 ```
 
-Funkcija `tail`` vraća ostatak liste bez početnog elementa
+Funkcija `tail` vraća ostatak liste bez početnog elementa
 
-```
+```haskell
 > tail x
 [2, 3, 4, 5]
 ```
@@ -219,40 +218,39 @@ Analogno postoje i funkcije `last` i `init` koje redom vraćaju poslednji elemen
 
 Funkcija `reverse` obrće listu:
 
-```
+```haskell
 > reverse [1, 2, 3, 4, 5]
 [5, 4, 3, 2, 1]
 ```
 
 Kad god konstruišemo liste od tipova koji se mogu međusobno porediti, tada i te liste možemo porediti. To poređenje se vrši član po član. Na primer:
 
-```
+```haskell
 > [0, 2, 3] <= [1, 2, 5]
 True 
 ```
 
 Prethodno poređenje je tačno zato što je svaki od elemenata prve liste manji ili jednak odgovarajućem elementu druge liste.
 
-```
+```haskell
 > [0, 2, 3] <= [1, 2, 1]
 False 
 ```
 
 Prethodno poređenje je netačno jer je treći element prve liste strogo veći od trećeg elementa druge liste.
 
-
 Ako su liste različitih dužina, a jedna čini početak one druge, tada je manja ona sa manje elemenata
 
-```
+```haskell
 >  [1, 2, 3] < [1, 2, 3, 4]
 True
 ```
 
-## Niske 
+## Karakteri i niske 
 
 Naravno, u Haskelu možemo raditi i sa karakterima i niskama. Pojedinačni karakteri se navode pod jednostrukim navodnicima:
 
-```
+```haskell
 > slovo = 'a'
 > slovo
 'a'
@@ -260,7 +258,7 @@ Naravno, u Haskelu možemo raditi i sa karakterima i niskama. Pojedinačni karak
 
 Karakteri su vrednosti sa kojima ne možemo mnogo štošta raditi (kao što je to slučaj sa brojevima koje možemo sabirati, oduzimati, itd...). Međutim, karaktere, kao i brojeve i logičke vrednosti, možemo porediti. To poređenje je ustanovljeno UTF kodiranjem karaktera. Stoga imamo
 
-```
+```haskell
 > 'a' < 'b'
 True
 > 'a' < 'B'
@@ -271,7 +269,7 @@ True
 
 Niske (stringovi) se navode pod dvostrukim navodnicima:
 
-```
+```haskell
 > pozdrav = "hello world"
 pozdrav
 "hello world"
@@ -279,23 +277,23 @@ pozdrav
 
 Niske u Haskelu nisu ništa drugo nego liste karaktera. String `pozdrav` iz prethodnog primera je mogao biti i ovako definisan
 
-```
+```haskell
 > pozdrav = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
 ```
 
 Kako su stringovi zapravo liste, sa njima možemo koristiti funkcije za rad sa listama poput `++`, `head`, `tail`, `last`, `init`, `reverse` a možemo ih i porediti
 
-```
+```haskell
 > tail "hello world"
 "ello world"
 ```
 
-```
+```haskell
 > reverse "anavolimilovana"
 "anavolimilovana"
 ```
 
-```
+```haskell
 > "abrakadabra" < "Banana"
 True
 ```
@@ -359,7 +357,7 @@ Ok, one module loaded.
 
 Datoka sa kodom će biti iskompajlirana (ako ne postoje greške), i vrednosti koje smo definisali u njoj će nam biti nadalje dostupe u *REPL* okruženju. Primetite da se prompt promenio u `*Main>` (što nije mnogo važno za nas sada). Sada možemo da nađemo površi kruga poluprečnika `2`:
 
-```
+```haskell
 *Main>povrsinaKruga 2
 12.566368
 ```
