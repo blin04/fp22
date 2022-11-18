@@ -257,7 +257,7 @@ zip = zipWith (\x y -> (x, y))
 5. Implementirati `map` funkciju preko `foldl` funkcije.
 6. Implementirati `filter` funkciju preko `foldl` funkcije.
 7. Naći sve početke data liste. Na primer `poceci [1, 2, 3]` bi trebalo da nam vrati `[[], [1], [1, 2], [1, 2, 3]]`. 
-8. Npaisati funkciju `kodiraj :: String -> [(Char, Int)]` koja kodira nisku tako što je predstavlja kao niz uređenih parova karatera i prirodnih brojeva. Broj označava koliko dužinu uzastopnog ponavljanja datog stringa. Na primer: `kodiraj "aaaabb"` daje `[('a', 3), ('b', 2)]`, a `kodiraj "Google"` daje `[('G', 1), ('o', 2), ('g', 1), ('l', 1), ('e', 1)]`. Napisati i funckiju `dekodiraj :: [(Char, Int)] -> String`.
+8. Napisati funkciju `kodiraj :: String -> [(Char, Int)]` koja kodira nisku tako što je predstavlja kao niz uređenih parova karatera i prirodnih brojeva. Broj označava dužinu uzastopnog ponavljanja datog karaktera. Na primer: `kodiraj "aaaabb"` daje `[('a', 4), ('b', 2)]`, a `kodiraj "Google"` daje `[('G', 1), ('o', 2), ('g', 1), ('l', 1), ('e', 1)]`. Napisati i funkciju `dekodiraj :: [(Char, Int)] -> String`.
 9. Napistai program koji proverava da li je uneti prirodan broj prost.
 10. Napisati program koji vraća listu prvih `n` Fibonačijevih brojeva.
 11. Napisati funkciju `rotate :: Int -> [a] -> [a]` koja 'rotira' listu tako što svaki element pomera za `n` koraka u levo: `rotate 1 ['a', 'b', 'c', 'd']` daje `['b', 'c', 'd', 'a']`, a rotate `rotate 2 ['a', 'b', 'c', 'd']` daje `['c', 'd', 'a', 'b']`, itd...
